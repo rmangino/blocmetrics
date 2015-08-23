@@ -15,6 +15,11 @@ class ApplicationController < ActionController::Base
     root_path
   end
 
+  # Handle unauthorized access using CanCanCan gem
+  rescue_from CanCan::AccessDenied do |exception|
+    redirect_to root_url, :alert => exception.message
+  end
+
 protected
 
   def configure_permitted_parameters

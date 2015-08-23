@@ -1,10 +1,11 @@
 Rails.application.routes.draw do
+  resources :registered_applications
   devise_for :users
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  root 'application#hello'
+  root 'registered_applications#index'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

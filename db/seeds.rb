@@ -32,7 +32,22 @@ reed  = create_user('Reed', 'reed@themanginos.com', "helloworld")
 
 ###############################################################################
 
+# Create RegisteredApplications
+
+APPLICATIONS_INFO = [ { app_name: "Twitter", app_url: "http://twitter.com"},
+                      { app_name: "Heroku",  app_url: "http://heroku.com"},
+                      { app_name: "Dropbox", app_url: "http://dropbox.com"} ]
+
+User.all.each do |user|
+  APPLICATIONS_INFO.each do |app|
+    RegisteredApplication.create!(user: user, name: app[:app_name], url: app[:app_url])
+  end
+end
+
+###############################################################################
+
 # Report results
 
 puts "Seed Finished"
-puts "#{User.count} users created"
+puts "#{User.count} Users created"
+puts "#{RegisteredApplication.count} RegisteredApplications created"
