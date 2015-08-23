@@ -3,13 +3,6 @@
 <h1>Registered Applications</h1>
 
 <table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Url</th>
-    </tr>
-  </thead>
-
   <tbody>
     <% @registered_applications.each do |registered_application| %>
       <tr>
@@ -25,4 +18,6 @@
 
 <br>
 
-<%= link_to 'New Registered application', new_registered_application_path %>
+<% if current_user %>
+  <%= link_to 'New Registered application', new_registered_application_path %>
+<% end %>

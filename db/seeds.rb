@@ -19,6 +19,7 @@ User.destroy_all
 
 def create_user(name, email, password)
   user = User.new(name: name, email: email, password: password)
+  user.skip_confirmation!
   user.save!
 end
 
