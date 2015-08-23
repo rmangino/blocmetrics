@@ -1,0 +1,15 @@
+# Update ENV vars on production:
+#   $ figaro heroku:set -e production
+#
+# View ENV vars:
+#   $ heroku config
+#
+# Set a specific ENV var:
+#   heroku config:set SECRET_KEY_BASE=b342336fbd582717d0d0f2eb1b238...
+#
+# Remove a specifc ENV var from production:
+#   $ heroku config:unset MY_SECRET_ENV_VAR
+#
+
+SENDGRID_PASSWORD:
+SENDGRID_USERNAME:
