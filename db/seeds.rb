@@ -39,9 +39,18 @@ APPLICATIONS_INFO = [ { app_name: "Twitter", app_url: "http://twitter.com"},
                       { app_name: "Heroku",  app_url: "http://heroku.com"},
                       { app_name: "Dropbox", app_url: "http://dropbox.com"} ]
 
+DOM_EVENT_NAMES = %w(click complete copy cut scroll)
+
 User.all.each do |user|
+
   APPLICATIONS_INFO.each do |app|
-    RegisteredApplication.create!(user: user, name: app[:app_name], url: app[:app_url])
+    registered_app = RegisteredApplication.create!(user: user, name: app[:app_name], url: app[:app_url])
+
+    # For each registered app generate some simulated events
+    rand(1..15).times do
+      Event.create!(registered_application: registered_app, name: DOM_EVENT_NAMES.sample)
+    end
+
   end
 end
 
@@ -52,3 +61,4 @@ end
 puts "Seed Finished"
 puts "#{User.count} Users created"
 puts "#{RegisteredApplication.count} RegisteredApplications created"
+puts "#{Event.count} Events created"

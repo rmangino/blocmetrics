@@ -1,6 +1,8 @@
 class RegisteredApplication < ActiveRecord::Base
   belongs_to :user
 
+  has_many :events, dependent: :destroy
+
   validates :name, presence: true, length: { minimum: 3 }
 
   validates :url, presence: true, length: { minimum: 8 }
@@ -9,6 +11,6 @@ class RegisteredApplication < ActiveRecord::Base
   # Always grab the newest registered apps first
   default_scope { order('created_at DESC') }
 
-  scope :visible_to, -> (user) { user ? where(user: user) : [] }
+  scope :visible_to, -> (user) { user ? where(user: user) : :none }
 
 end

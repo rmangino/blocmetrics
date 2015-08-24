@@ -6,6 +6,15 @@ class RegisteredApplicationsController < ApplicationController
   end
 
   def show
+    @events = @registered_application.events.sort_by(&:name)
+
+    # Create a hash where each element is an event name and the number of times
+    # that event name exists in the @events array.
+
+    # For example: { "complete" => 3, "click" => 4, "scroll" => 2, "cut" => 2 }
+    @event_names_with_counts = @events.each_with_object(Hash.new(0)) do |event, array|
+      array[event.name] += 1
+    end
   end
 
   def new

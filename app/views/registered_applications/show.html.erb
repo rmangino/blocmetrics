@@ -1,7 +1,7 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Name:</strong>
+  <strong>Application Name:</strong>
   <%= @registered_application.name %>
 </p>
 
@@ -9,6 +9,30 @@
   <strong>Url:</strong>
   <%= @registered_application.url %>
 </p>
+
+<% if @events.count > 0 %>
+  <div class="container">
+    <p><strong>Events ( <%= @events.count %> ) </strong></p>
+    <table class="table table-striped table-bordered table-condensed table-hover">
+      <thead>
+        <tr>
+          <th>Event Name</th>
+          <th>Count</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @event_names_with_counts.each do |event_info| %>
+          <tr>
+            <td><%= event_info[0] %></td>
+            <td><%= event_info[1] %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <br />
+  </div>
+<% end %>
+
 
 <%= link_to 'Edit', edit_registered_application_path(@registered_application) %> |
 <%= link_to 'Delete', @registered_application, method: :delete, data: { confirm: 'Are you sure?' } %> |
