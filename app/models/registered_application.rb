@@ -11,6 +11,6 @@ class RegisteredApplication < ActiveRecord::Base
   # Always grab the newest registered apps first
   default_scope { order('created_at DESC') }
 
-  scope :visible_to, -> (user) { user ? where(user: user) : :none }
+  scope :visible_to, -> (user) { where(user: user) }
 
 end

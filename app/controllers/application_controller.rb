@@ -5,10 +5,6 @@ class ApplicationController < ActionController::Base
 
   before_filter :configure_permitted_parameters, if: :devise_controller?
 
-  def hello
-    # Nothing to see here...
-  end
-
   # How to have Devise route to a specific path upon a successful login.
   # https://github.com/plataformatec/devise/wiki/How-To%3A-Redirect-to-a-specific-page-on-successful-sign-in-and-sign-out
   def after_sign_in_path_for(resource)
