@@ -1,0 +1,26 @@
+%p
+  %strong Application Name:
+  = @registered_application.name
+%p
+  %strong Url:
+  = @registered_application.url
+- if @events.count > 0
+  .container
+    %p
+      %strong
+        Events ( #{@events.count} )
+    %table.table.table-striped.table-bordered.table-condensed.table-hover
+      %thead
+        %tr
+          %th Event Name
+          %th Count
+      %tbody
+        - @event_names_with_counts.each do |event_info|
+          %tr
+            %td= event_info[0]
+            %td= event_info[1]
+    %br/
+= link_to 'Edit', edit_registered_application_path(@registered_application)
+|
+= link_to 'Delete', @registered_application, method: :delete, data: { confirm: 'Are you sure?' } |
+= link_to 'Back', registered_applications_path

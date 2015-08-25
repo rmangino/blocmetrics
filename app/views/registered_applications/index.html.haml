@@ -1,0 +1,22 @@
+- if current_user
+
+  %h1 Registered Applications
+
+  - if @registered_applications.count == 0
+    %p None...
+  - else
+    %table
+      %tbody
+        - @registered_applications.each do |registered_application|
+          %tr
+            %td= registered_application.name
+            %td= registered_application.url
+            %td= link_to 'Show', registered_application
+            %td= link_to 'Edit', edit_registered_application_path(registered_application)
+            %td= link_to 'Destroy', registered_application, method: :delete, data: { confirm: 'Are you sure?' }
+
+  %br
+
+  = link_to 'New Registered application', new_registered_application_path
+- else
+  %h1 Log in to register applications!
