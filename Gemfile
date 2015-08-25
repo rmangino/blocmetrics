@@ -1,8 +1,11 @@
 source 'https://rubygems.org'
 
-
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.1'
+
+# Use postgresql as the database for Active Record
+gem 'pg'
+
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 gem 'bootstrap-sass'
@@ -33,6 +36,11 @@ gem 'faker'
 # Authorization
 gem 'cancancan', '~> 1.10'
 
+gem 'chartkick', '~> 1.3.2'
+
+# For use with chartkick
+gem 'groupdate', '~> 2.4.0'
+
 # Provides attr_accessible
 #gem 'protected_attributes'
 
@@ -46,9 +54,6 @@ gem 'cancancan', '~> 1.10'
 # gem 'capistrano-rails', group: :development
 
 group :development, :test do
-  # Use sqlite3 as the database for Active Record
-  gem 'sqlite3'
-
   gem 'rspec-rails', '~> 3.0'
 
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -71,7 +76,6 @@ group :development, :test do
 end
 
 group :production do
-  gem 'pg'
   gem 'rails_12factor'
 end
 
