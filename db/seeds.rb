@@ -35,7 +35,8 @@ reed  = create_user('Reed', 'reed@themanginos.com', "helloworld")
 
 # Create RegisteredApplications
 
-APPLICATIONS_INFO = [ { app_name: "Twitter", app_url: "http://twitter.com"},
+APPLICATIONS_INFO = [ { app_name: "Localhost", app_url: "http://localhost:2222"},
+                      { app_name: "Twitter", app_url: "http://twitter.com"},
                       { app_name: "Heroku",  app_url: "http://heroku.com"},
                       { app_name: "Dropbox", app_url: "http://dropbox.com"} ]
 

@@ -1,11 +1,39 @@
 class API::EventsController < ApplicationController
 
-  # RRM How to properly handle this in production?
-  skip_before_action :verify_authenticity_token
+  skip_before_filter :verify_authenticity_token
+  before_filter :cors_preflight_check
+  after_filter :cors_set_access_control_headers
 
-  before_action :set_access_control_headers
+  # If this is a preflight OPTIONS request, then short-circuit the request,
+  # return only the necessary headers and return an empty text/plain.
+  def cors_preflight_check
+    if request.method == :options
+      headers['Access-Control-Allow-Origin'] = '*'
+      headers['Access-Control-Allow-Methods'] = 'POST, GET, OPTIONS'
+      headers['Access-Control-Allow-Headers'] = 'X-Requested-With, X-Prototype-Version'
+      headers['Access-Control-Max-Age'] = '1728000'
+      render :text => '', :content_type => 'text/plain'
+    end
+  end
+
+  # For all responses in this controller, return the CORS access control headers.
+  def cors_set_access_control_headers
+    headers['Access-Control-Allow-Headers'] = "Content-Type"
+    headers['Access-Control-Allow-Origin'] = '*'
+    headers['Access-Control-Allow-Methods'] = 'POST, GET, OPTIONS'
+    headers['Access-Control-Max-Age'] = "1728000"
+  end
 
   def create
+    # Is this a horrible hack?
+    #
+    # If this is the CORS preflight request do not attempt to save anything to
+    # the database.
+    if request.method == "OPTIONS"
+      render :json => '', :content_type => 'application/json'
+      return
+    end
+
     registered_application = RegisteredApplication.find_by(url: request.env['HTTP_ORIGIN'])
 
     if registered_application.nil?
@@ -24,15 +52,7 @@ class API::EventsController < ApplicationController
 private
 
   def event_params
-    params.permit(:name)
-  end
-
-  # Set CORS response headers
-  # http://arnab-deka.com/posts/2012/09/allowing-and-testing-cors-requests-in-rails
-  def set_access_control_headers
-    headers['Access-Control-Allow-Origin'] = '*'
-    headers['Access-Control-Allow-Methods'] = 'POST, GET, OPTIONS'
-    headers['Access-Control-Allow-Headers'] = 'Content-Type'
+    params.require(:event).permit(:name)
   end
 
 end
